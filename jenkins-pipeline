@@ -1,0 +1,23 @@
+pipeline {
+    agent any
+
+    stages {
+
+        stage('Clone Code') {
+            steps {
+                git branch: 'main',
+                    url: 'https://github.com/deependra-kumar-kumawat/apprepo.git'
+            }
+        }
+
+        stage('Deploy') {
+            steps {
+                sh '''
+                    ssh root@45.79.126.160 
+                    scp -r ./* user@192.168.1.100:/opt/myapp
+                '''
+            }
+        }
+
+    }
+}
